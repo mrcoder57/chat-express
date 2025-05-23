@@ -6,16 +6,21 @@ import mongoose from 'mongoose';
 import { createServer } from 'http';
 import { initializeSocket } from './config/socket';
 import { ChatHandler } from './socket/chat.handler';
+import chatRoutes from './routes/chat.routes';
 
 // Load environment variables
 config();
 
 const app: Express = express();
-const httpServer = createServer(app);
 const port = process.env.PORT || 3000;
+const httpServer = createServer(app);
 
-// Middleware for parsing JSON bodies
+// Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Routes
+app.use('/api/chats', chatRoutes);
 
 // Health check endpoint
 app.get('/health', (req: Request, res: Response) => {
