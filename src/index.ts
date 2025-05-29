@@ -7,6 +7,7 @@ import { createServer } from 'http';
 import { initializeSocket } from './config/socket';
 import { ChatHandler } from './socket/chat.handler';
 import chatRoutes from './routes/chat.routes';
+import cors from 'cors';
 
 // Load environment variables
 config();
@@ -15,6 +16,13 @@ const app: Express = express();
 const port = process.env.PORT || 3000;
 const httpServer = createServer(app);
 
+// CORS middleware
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -22,6 +30,9 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/api/chats', chatRoutes);
 
+app.get('/', (req: Request, res: Response) => {
+  res.send('Express + TypeScript Server');
+});
 // Health check endpoint
 app.get('/health', (req: Request, res: Response) => {
   const mongoStatus = mongoose.connection.readyState === 1;
@@ -65,4 +76,4 @@ const startServer = async () => {
 };
 
 // Start the server
-startServer(); 
+startServer();
