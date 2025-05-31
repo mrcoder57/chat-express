@@ -49,12 +49,17 @@ export class ChatHandler {
         
         // Join the chat room
         socket.join(`chat:${chatId}`);
+        console.log(`User ${userId} joined chat room: chat:${chatId}`);
         
         // Mark user as online in this chat
         await RedisUtils.set(`user:${userId}:chat:${chatId}:online`, true);
         
         // Notify others in the chat
         socket.to(`chat:${chatId}`).emit('user:joined', { userId, chatId });
+        
+        // Log current room members
+        const roomMembers = await this.io.in(`chat:${chatId}`).fetchSockets();
+        console.log(`Current members in chat:${chatId}:`, roomMembers.map(s => s.data.userId));
     }
 
     private async handleNewMessage(socket: Socket, payload: MessagePayload) {
@@ -71,8 +76,18 @@ export class ChatHandler {
                 status: [{ userId, isSent: true }]
             });
 
-            // Emit to all users in the chat
-            this.io.to(`chat:${payload.chatId}`).emit('message:new', {
+            console.log(`[Chat ${payload.chatId}] User ${userId} sent message:`, {
+                content: payload.content,
+                contentType: payload.contentType,
+                mediaMetadata: payload.mediaMetadata
+            });
+
+            // Get all sockets in the chat room
+            const roomSockets = await this.io.in(`chat:${payload.chatId}`).fetchSockets();
+            console.log(`Broadcasting to ${roomSockets.length} users in chat:${payload.chatId}`);
+
+            // Emit to all users in the chat including sender
+            this.io.in(`chat:${payload.chatId}`).emit('message:new', {
                 message: {
                     ...message.toJSON(),
                     sender: userId
