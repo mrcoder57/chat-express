@@ -49,6 +49,7 @@ export class ChatHandler {
         
         // Join the chat room
         socket.join(`chat:${chatId}`);
+        console.log(`User ${userId} joined chat room: ${chatId}`);
         
         // Mark user as online in this chat
         await RedisUtils.set(`user:${userId}:chat:${chatId}:online`, true);
@@ -70,8 +71,9 @@ export class ChatHandler {
                 mediaMetadata: payload.mediaMetadata,
                 status: [{ userId, isSent: true }]
             });
-
+            console.log(`Message sent: ${message} by user ${userId}`);
             // Emit to all users in the chat
+            console.log(`Broadcasting message in chat room ${payload.chatId}: ${payload.content}`);
             this.io.to(`chat:${payload.chatId}`).emit('message:new', {
                 message: {
                     ...message.toJSON(),
