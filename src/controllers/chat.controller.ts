@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Chat } from '../models';
+import { Chat, Message } from '../models';
 import mongoose from 'mongoose';
 
 export class ChatController {
@@ -178,6 +178,55 @@ export class ChatController {
                 success: false,
                 message: 'Failed to create chat',
                 error: error instanceof Error ? error.message : 'Unknown error'
+            });
+        }
+    }
+
+    /**
+     * Get messages for a specific chat
+     * @route GET /api/chats/:chatId/messages
+     * @access Private
+     */
+    static async getChatMessages(req: any, res: Response) {
+        try {
+            if (!req.userId) {
+                return res.status(401).json({
+                    success: false,
+                    message: 'User not authenticated'
+                });
+            }
+
+            const { chatId } = req.params;
+            const userId = req.userId;
+
+            // Verify user is part of the chat
+            const chat = await Chat.findOne({
+                _id: chatId,
+                participants: userId
+            });
+
+            if (!chat) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Chat not found or you are not a participant'
+                });
+            }
+
+            // Get messages for the chat
+            const messages = await Message.find({ chatId })
+                .sort({ createdAt: -1 })
+                .limit(50) // Limit to last 50 messages
+                .populate('senderId', 'firstName lastName userName userImage');
+
+            return res.status(200).json({
+                success: true,
+                data: messages
+            });
+        } catch (error) {
+            console.error('Error fetching chat messages:', error);
+            return res.status(500).json({
+                success: false,
+                message: 'Error fetching chat messages'
             });
         }
     }
