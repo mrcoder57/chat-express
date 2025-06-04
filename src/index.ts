@@ -18,7 +18,7 @@ const httpServer = createServer(app);
 
 // CORS middleware
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3001' || 'http://localhost:3000',
+  origin: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
