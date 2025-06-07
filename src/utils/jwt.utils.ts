@@ -3,7 +3,7 @@ import { config } from 'dotenv';
 
 config();
 
-const JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET || "accesssecret";
+const JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET!
 
 interface TokenPayload {
     userId: string;
