@@ -76,19 +76,10 @@ Build Chat-Express from source and install dependencies:
 
 3. Install the dependencies:
     ```bash
-    npm install
-    ```
-    or
-    ```bash
     bun install
     ```
 5. Run in development
      ```bash
-    npm run dev
-    ```
-     or
-
-        ```bash
     bun run dev
     ```
 
