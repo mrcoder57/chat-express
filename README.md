@@ -78,9 +78,18 @@ Build Chat-Express from source and install dependencies:
     ```bash
     npm install
     ```
-4. Run in development
+    or
+    ```bash
+    bun install
+    ```
+5. Run in development
      ```bash
     npm run dev
+    ```
+     or
+
+        ```bash
+    bun run dev
     ```
 
 **Using Docker:**
