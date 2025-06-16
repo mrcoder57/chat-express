@@ -12,7 +12,7 @@ _Built with the tools and technologies:_
 ![Postman](https://img.shields.io/badge/Postman-Tested-orange)
 ![Socket.IO](https://img.shields.io/badge/Socket.IO-4.5.4-brightgreen)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Persistence-47A248)
-![Redis]([https://img.shields.io/badge/Redis](https://img.shields.io/badge/any_text-you_like-blue))
+![Redis]((https://img.shields.io/badge/redis-blue))
 ![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED)
 
@@ -38,7 +38,7 @@ _Built with the tools and technologies:_
 This project empowers developers to implement real-time communication features effortlessly. The core features include:
 
 - 🔌 **WebSocket & Socket.IO Integration**: Enables instant, bidirectional communication between clients and servers.
-- 📡 **Redis Pub/Sub**: Supports scalable, distributed messaging for high-volume environments.
+- 📡 **Redis**: Supports Cahing, for concurrent fetching queries.
 - 🧠 **MongoDB Persistence**: Ensures reliable storage of messages, user data, and chat histories.
 - 🔐 **Secure Authentication**: Middleware for token validation, safeguarding user sessions.
 - 🐳 **Docker Deployment**: Simplified setup and scaling using containerized environments.
