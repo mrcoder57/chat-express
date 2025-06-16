@@ -12,7 +12,7 @@ _Built with the tools and technologies:_
 ![Postman](https://img.shields.io/badge/Postman-Tested-orange)
 ![Socket.IO](https://img.shields.io/badge/Socket.IO-4.5.4-brightgreen)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Persistence-47A248)
-![Redis](https://img.shields.io/badge/Redis-Pub/Sub-DC382D)
+![Redis]([https://img.shields.io/badge/Redis](https://img.shields.io/badge/any_text-you_like-blue))
 ![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED)
 
